@@ -1,5 +1,6 @@
-from .application import app
+from .application import app, db  # noqa F401
 from .routes import *  # noqa F401 F403
+from .models import *  # noqa F401 F403
 import logging
 
 

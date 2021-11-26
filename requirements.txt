@@ -1,5 +1,6 @@
 requests
-Flask
+flask
+flask-login
+flask-sqlalchemy
 oauthlib
 pyOpenSSL
-Flask-Login
