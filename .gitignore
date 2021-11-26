@@ -1,3 +1,5 @@
 *~
-lsdfailtools-web/__pycache__/
-
+lsdfailtools_web/__pycache__/
+build/
+dist/
+lsdfailtools_web.egg-info/
