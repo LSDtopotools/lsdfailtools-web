@@ -25,7 +25,12 @@ def load_user(user_id):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', user=current_user)
+    if current_user.is_authenticated:
+        runs = current_user.runs
+    else:
+        runs = []
+
+    return render_template('index.html', user=current_user, runs=runs)
 
 
 @app.route('/new', methods=['GET', 'POST'])

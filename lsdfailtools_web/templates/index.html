@@ -2,12 +2,19 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1>Hi, {{ user.name }}!</h1>
-You're logged in!
-<ul>
-  <li>ID: {{ user.id }}</li>
-  <li>Email: {{ user.email }}</li>
-  <li>Google Profile Picture: <img src="{{ user.profile_pic }}" alt="Google profile pic"></img></div></li>
-</ul>
+<table>
+  <tr>
+    <th>run id</th>
+    <th>submitted</th>
+    <th>status</th>
+  </tr>
+  {% for run in runs %}
+  <tr>
+    <td>{{ run.id }}</td>
+    <td>{{ run.submitted }}</td>
+    <td>{{ run.status.name }}</td>
+  </tr>
+  {% endfor %}
+</table>
 {% endif %}
 {% endblock %}
