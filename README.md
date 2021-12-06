@@ -11,7 +11,7 @@ lsdfailtools-manage --init-db
 
 Development
 -----------
-This flask application is developed following the excellent [Flask Mega Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) and the [Flask Google Login Tutorial](https://realpython.com/flask-google-login/). 
+This flask application is developed following the excellent [Flask Mega Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) and the [Flask Google Login Tutorial](https://realpython.com/flask-google-login/). The page on how to use [WTF to upload files](https://webomnizz.com/working-with-file-upload-in-flask/) was also useful.
 
 For local testing you can run the application using the [run_local.sh](run_local.sh) script. Create a `secret.sh` file containing the google secrets for the application:
 ```

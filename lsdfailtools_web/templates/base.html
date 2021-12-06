@@ -8,6 +8,15 @@
       {% endif %}
     </head>
     <body>
-        {% block content %}{% endblock %}
+      <ul>
+      {% if user.is_authenticated %}
+      <li><a href="/logout">Logout</a></li>
+      <li><a href="/new">New Run</a></li>
+      {% else %}
+      <li><a class="button" href="/login">Google Login</a></li>
+      {% endif %}
+      </ul>
+      
+      {% block content %}{% endblock %}
     </body>
 </html>

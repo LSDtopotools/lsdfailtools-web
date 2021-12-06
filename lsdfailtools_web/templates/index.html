@@ -8,9 +8,5 @@ You're logged in!
   <li>Email: {{ user.email }}</li>
   <li>Google Profile Picture: <img src="{{ user.profile_pic }}" alt="Google profile pic"></img></div></li>
 </ul>
-
-<a class="button" href="/logout">Logout</a>
-{% else %}
-<a class="button" href="/login">Google Login</a>
 {% endif %}
 {% endblock %}

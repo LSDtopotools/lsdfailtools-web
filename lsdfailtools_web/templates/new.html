@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="{{ url_for('new') }}" enctype="multipart/form-data" method="POST">
+  {{ form.csrf_token }}
+
+  <label>Upload Data</label>
+  <input type="file" name="lsddata" class="form-control-file">
+  {% for error in form.lsddata.errors %}
+  <small class="text-danger">{{ error }}</small>  
+  {% endfor %}
+
+  <button class="btn btn-primary">Upload</button>
+{% endblock %}

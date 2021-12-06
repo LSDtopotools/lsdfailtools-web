@@ -1,9 +1,10 @@
 from .application import app, db, login_manager
+from .forms import UploadDataForm
 from .models import User
 from .config import Config
 
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import render_template
+from flask import render_template, flash
 from flask import request, redirect, url_for
 import requests
 import json
@@ -22,6 +23,19 @@ def load_user(user_id):
 @app.route('/index')
 def index():
     return render_template('index.html', user=current_user)
+
+
+@app.route('/new', methods=['GET', 'POST'])
+@login_required
+def new():
+    form = UploadDataForm()
+    if form.validate_on_submit():
+        form.lsddata.data.save('/tmp/tst.csv')
+        flash('Document uploaded successfully.')
+
+        return redirect(url_for('index'))
+
+    return render_template('new.html', user=current_user, form=form)
 
 
 def get_google_provider_cfg():

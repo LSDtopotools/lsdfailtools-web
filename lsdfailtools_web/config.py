@@ -8,6 +8,7 @@ basedir = Path('/tmp')
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(24)
+    MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100MB max-limit
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + str(basedir / 'lsdfailtools_web.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
