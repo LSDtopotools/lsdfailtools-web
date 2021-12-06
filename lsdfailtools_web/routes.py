@@ -9,6 +9,7 @@ from flask import request, redirect, url_for
 import requests
 import json
 from oauthlib.oauth2 import WebApplicationClient
+from pathlib import Path
 
 # OAuth 2 client setup
 client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
@@ -29,8 +30,9 @@ def index():
 @login_required
 def new():
     form = UploadDataForm()
+    basedir = Path(Config.BASEDIR)
     if form.validate_on_submit():
-        form.lsddata.data.save('/tmp/tst.csv')
+        form.lsddata.data.save(basedir / 'tst.csv')
         flash('Document uploaded successfully.')
 
         return redirect(url_for('index'))
