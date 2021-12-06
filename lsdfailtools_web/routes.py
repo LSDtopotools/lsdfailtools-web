@@ -1,6 +1,6 @@
 from .application import app, db, login_manager
 from .forms import UploadDataForm
-from .models import User
+from .models import User, Run, RunState
 from .config import Config
 
 from flask_login import current_user, login_user, logout_user, login_required
@@ -10,6 +10,8 @@ import requests
 import json
 from oauthlib.oauth2 import WebApplicationClient
 from pathlib import Path
+import uuid
+import datetime
 
 # OAuth 2 client setup
 client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
@@ -32,7 +34,18 @@ def new():
     form = UploadDataForm()
     basedir = Path(Config.BASEDIR)
     if form.validate_on_submit():
-        form.lsddata.data.save(basedir / 'tst.csv')
+
+        run = Run(id=uuid.uuid4(), submitted=datetime.datetime.now(),
+                  status=RunState.new, user=current_user)
+
+        rundir = basedir / str(run.id)
+        rundir.mkdir()
+
+        form.lsddata.data.save(rundir / 'data.csv')
+
+        db.session.add(run)
+        db.session.commit()
+
         flash('Document uploaded successfully.')
 
         return redirect(url_for('index'))
