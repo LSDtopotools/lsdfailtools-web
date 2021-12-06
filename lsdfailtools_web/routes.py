@@ -3,6 +3,7 @@ from .models import User
 from .config import Config
 
 from flask_login import current_user, login_user, logout_user, login_required
+from flask import render_template
 from flask import request, redirect, url_for
 import requests
 import json
@@ -20,17 +21,7 @@ def load_user(user_id):
 @app.route('/')
 @app.route('/index')
 def index():
-    if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
-    else:
-        return '<a class="button" href="/login">Google Login</a>'
+    return render_template('index.html', user=current_user)
 
 
 def get_google_provider_cfg():

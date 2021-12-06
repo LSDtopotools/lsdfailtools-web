@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Hi, {{ user.name }}!</h1>
+You're logged in!
+<ul>
+  <li>Email: {{ user.email }}</li>
+  <li>Google Profile Picture: <img src="{{ user.profile_pic }}" alt="Google profile pic"></img></div></li>
+</ul>
+
+<a class="button" href="/logout">Logout</a>
+{% else %}
+<a class="button" href="/login">Google Login</a>
+{% endif %}
+{% endblock %}
