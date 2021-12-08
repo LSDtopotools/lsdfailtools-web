@@ -10,10 +10,10 @@
     <body>
       <ul>
       {% if user.is_authenticated %}
-      <li><a href="/logout">Logout</a></li>
-      <li><a href="/new">New Run</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+      <li><a href="{{ url_for('new') }}">New Run</a></li>
       {% else %}
-      <li><a class="button" href="/login">Google Login</a></li>
+      <li><a class="button" href="{{ url_for('login') }}">Google Login</a></li>
       {% endif %}
       </ul>
       
