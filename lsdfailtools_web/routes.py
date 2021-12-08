@@ -70,9 +70,11 @@ def login():
 
     # Use library to construct the request for Google login and provide
     # scopes that let you retrieve user's profile from Google
+    # make sure the scheme is https to allow it to work behind a proxy
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=(
+            request.base_url.replace('http://', 'https://') + "/callback"),
         scope=["openid", "email", "profile"],
     )
     return redirect(request_uri)
@@ -89,10 +91,11 @@ def callback():
     token_endpoint = google_provider_cfg["token_endpoint"]
 
     # Prepare and send a request to get tokens! Yay tokens!
+    # make sure the scheme is https to allow it to work behind a proxy
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
-        authorization_response=request.url,
-        redirect_url=request.base_url,
+        authorization_response=request.url.replace('http://', 'https://'),
+        redirect_url=request.base_url.replace('http://', 'https://'),
         code=code
     )
     token_response = requests.post(
