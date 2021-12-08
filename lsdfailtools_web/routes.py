@@ -46,7 +46,7 @@ def new():
         rundir = basedir / str(run.id)
         rundir.mkdir()
 
-        form.lsddata.data.save(rundir / 'data.csv')
+        form.lsddata.data.save((rundir / 'data.csv').open('wb'))
 
         db.session.add(run)
         db.session.commit()
