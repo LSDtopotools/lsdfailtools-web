@@ -5,3 +5,4 @@ flask-sqlalchemy
 flask-wtf
 oauthlib
 pyOpenSSL
+celery

@@ -2,6 +2,7 @@ from .application import app, db, login_manager
 from .forms import UploadDataForm
 from .models import User, Run, RunState
 from .config import Config
+from .worker import runLSDFailtools
 
 from flask_login import current_user, login_user, logout_user, login_required
 from flask import render_template, flash
@@ -52,6 +53,8 @@ def new():
         db.session.commit()
 
         flash('Document uploaded successfully.')
+
+        runLSDFailtools.delay(str(rundir), 'data.cs', 'out.csv')
 
         return redirect(url_for('index'))
 

@@ -16,3 +16,8 @@ class Config:
     GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
     GOOGLE_DISCOVERY_URL = (
         "https://accounts.google.com/.well-known/openid-configuration")
+
+    CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL") or \
+        'amqp://guest@localhost//'
+    CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND") or \
+        'amqp://guest@localhost//'
