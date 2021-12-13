@@ -55,7 +55,8 @@ def new():
         flash('Document uploaded successfully.')
 
         runLSDFailtools.delay(run.id, str(rundir), 'data.cs',
-                              Config.RESULT_NAME)
+                              Config.RESULT_NAME,
+                              url_for('index', _external=True))
 
         return redirect(url_for('index'))
 

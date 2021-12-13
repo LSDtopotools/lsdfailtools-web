@@ -1,0 +1,7 @@
+Dear {{ run.user.name }}
+your run with ID {{ run.id }} submitted at {{ run.submitted}} has completed. You can download it from
+
+{{ download }}
+
+Regards,
+the LSDFailtools Team

@@ -4,6 +4,7 @@ from celery import Celery
 from .config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_mail import Mail
 
 
 # handle celery task creation and teardown
@@ -49,6 +50,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 csrf.init_app(app)
+
+mail = Mail(app)
 
 celery = FlaskCelery()
 celery.init_app(app)

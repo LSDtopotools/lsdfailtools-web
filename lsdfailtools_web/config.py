@@ -6,11 +6,14 @@ import os
 
 class Config:
     BASEDIR = os.environ.get('LFT_BASEDIR') or '/tmp/lsdfailtools'
+    ADMIN = os.environ.get('LFT_ADMIN') or 'magnus.hagdorn@ed.ac.uk'
     SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(24)
     MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100MB max-limit
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + str(Path(BASEDIR) / 'lsdfailtools_web.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    if 'SERVER_NAME' in os.environ:
+        SERVER_NAME = os.environ.get('SERVER_NAME')
 
     GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
     GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
