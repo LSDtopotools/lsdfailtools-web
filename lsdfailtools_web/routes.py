@@ -5,8 +5,8 @@ from .config import Config
 from .worker import runLSDFailtools
 
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import render_template, flash
-from flask import request, redirect, url_for
+from flask import render_template, flash, send_file
+from flask import request, redirect, url_for, abort
 import requests
 import json
 from oauthlib.oauth2 import WebApplicationClient
@@ -54,11 +54,27 @@ def new():
 
         flash('Document uploaded successfully.')
 
-        runLSDFailtools.delay(run.id, str(rundir), 'data.cs', 'out.csv')
+        runLSDFailtools.delay(run.id, str(rundir), 'data.cs',
+                              Config.RESULT_NAME)
 
         return redirect(url_for('index'))
 
     return render_template('new.html', user=current_user, form=form)
+
+
+@app.route('/<ruid>/download')
+@login_required
+def download(ruid):
+    run = Run.query.filter_by(id=ruid).one_or_none()
+    if run is None:
+        abort(404)  # not found
+    if run.user != current_user:
+        abort(403)  # forbidden
+    if run.status != RunState.complete:
+        abort(400)  # bad request
+    return send_file(
+        str(Path(Config.BASEDIR, str(run.id), Config.RESULT_NAME)),
+        as_attachment=True)
 
 
 def get_google_provider_cfg():

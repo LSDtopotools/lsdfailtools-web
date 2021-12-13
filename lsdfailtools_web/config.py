@@ -21,3 +21,5 @@ class Config:
         'amqp://guest@localhost//'
     CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND") or \
         'amqp://guest@localhost//'
+
+    RESULT_NAME = 'out.csv'
