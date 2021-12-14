@@ -1,0 +1,5 @@
+lsdfailtools-web (0.0.0-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Magnus Hagdorn <magnus.hagdorn@ed.ac.uk>  Tue, 14 Dec 2021 11:22:40 +0000
