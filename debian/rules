@@ -2,7 +2,7 @@
 # See debhelper(7) (uncomment to enable)
 # output every command that modifies files on the build system.
 #export DH_VERBOSE = 1
-
+export PYBUILD_NAME = lsdtopofailtools_web
 
 # see FEATURE AREAS in dpkg-buildflags(1)
 #export DEB_BUILD_MAINT_OPTIONS = hardening=+all
@@ -15,7 +15,7 @@
 
 
 %:
-	dh $@
+	dh $@ --with python3 --buildsystem=pybuild
 
 
 # dh_make generated override targets
