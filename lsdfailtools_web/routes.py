@@ -20,7 +20,7 @@ client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
 # Flask-Login helper to retrieve a user from our db
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.filter_by(id=user_id).one()
+    return User.query.filter_by(id=user_id).one_or_none()
 
 
 @app.route('/')

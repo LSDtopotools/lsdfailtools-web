@@ -17,21 +17,33 @@ def runLSDFailtools(runid, rundir, coords, rain, outname, url):
     db.session.commit()
     rundir = Path(rundir)
 
+    error_msg = ''
     try:
         subprocess.run([Config.LSDFAILTOOL, str(rundir) + '/',
                         '-c', coords, '-p', rain,
                         '-f', Config.LSDFAILTOOL_CFG],
-                       check=True)
+                       check=True, stdout=subprocess.PIPE,
+                       stderr=subprocess.STDOUT)
+        run.status = RunState.complete
     except Exception as e:
-        print(e)
+        error_msg = e.stdout.decode('utf-8')
+        run.status = RunState.failed
 
-    run.status = RunState.complete
     db.session.commit()
 
     # send mail
-    msg = Message(f'run {run.id} complete', sender=Config.ADMIN,
-                  recipients=[run.user.email])
-    msg.body = render_template('email/run_complete.txt', run=run, download=url)
-    msg.html = render_template('email/run_complete.html', run=run,
-                               download=url)
+    if run.status == RunState.complete:
+        msg = Message(f'run {run.id} complete', sender=Config.ADMIN,
+                      recipients=[run.user.email])
+        msg.body = render_template('email/run_complete.txt', run=run,
+                                   download=url)
+        msg.html = render_template('email/run_complete.html', run=run,
+                                   download=url)
+    elif run.status == RunState.failed:
+        msg = Message(f'run {run.id} failed', sender=Config.ADMIN,
+                      recipients=[run.user.email])
+        msg.body = render_template('email/run_failed.txt', run=run,
+                                   error=error_msg)
+        msg.html = render_template('email/run_failed.html', run=run,
+                                   error=error_msg)
     mail.send(msg)
