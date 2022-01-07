@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 
 name = 'lsdfailtools-web'
-version = '0.0'
-release = '0.0.0'
+version = '0.1'
+release = '0.1.0'
 author = 'Magnus Hagdorn'
 
 setup(

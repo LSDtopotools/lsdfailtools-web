@@ -4,9 +4,14 @@
 <form action="{{ url_for('new') }}" enctype="multipart/form-data" method="POST">
   {{ form.csrf_token }}
 
-  <label>Upload Data</label>
-  <input type="file" name="lsddata" class="form-control-file">
-  {% for error in form.lsddata.errors %}
+  <label>Upload Coordinate File</label>
+  <input type="file" name="coordinates" class="form-control-file">
+  {% for error in form.coordinates.errors %}
+  <small class="text-danger">{{ error }}</small>  
+  {% endfor %}
+  <label>Upload Precipitation File</label>
+  <input type="file" name="precipitation" class="form-control-file">
+  {% for error in form.precipitation.errors %}
   <small class="text-danger">{{ error }}</small>  
   {% endfor %}
 

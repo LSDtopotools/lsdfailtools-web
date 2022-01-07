@@ -25,4 +25,7 @@ class Config:
     CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND") or \
         'amqp://guest@localhost//'
 
-    RESULT_NAME = 'out.csv'
+    RESULT_NAME = 'landslide_failures_output.zip'
+    LSDFAILTOOL = os.environ.get('LSDFAILTOOL') or 'lsdfailtools-wrapper'
+    LSDFAILTOOL_CFG = os.environ.get('LSDFAILTOOL_CFG') or \
+        'file_paths_landslide_automation.json'

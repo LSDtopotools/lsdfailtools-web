@@ -1,0 +1,8 @@
+Dear {{ run.user.name }}
+your run with ID {{ run.id }} submitted at {{ run.submitted}} has
+failed with the following error:
+
+{{ error }}
+
+Regards,
+the LSDFailtools Team

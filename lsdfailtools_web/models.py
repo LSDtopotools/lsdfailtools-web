@@ -61,6 +61,7 @@ class RunState(Enum):
     new = 1
     running = 2
     complete = 3
+    failed = 4
 
 
 class Run(db.Model):
