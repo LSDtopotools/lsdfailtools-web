@@ -39,6 +39,10 @@ def index():
 def new():
     form = UploadDataForm()
     basedir = Path(Config.BASEDIR)
+
+    coords = 'coords.csv'
+    rain = 'rain.csv'
+
     if form.validate_on_submit():
 
         run = Run(id=uuid.uuid4(), submitted=datetime.datetime.now(),
@@ -47,14 +51,15 @@ def new():
         rundir = basedir / str(run.id)
         rundir.mkdir()
 
-        form.lsddata.data.save((rundir / 'data.csv').open('wb'))
+        form.coordinates.data.save((rundir / coords).open('wb'))
+        form.precipitation.data.save((rundir / rain).open('wb'))
 
         db.session.add(run)
         db.session.commit()
 
         flash('Document uploaded successfully.')
 
-        runLSDFailtools.delay(run.id, str(rundir), 'data.cs',
+        runLSDFailtools.delay(run.id, str(rundir), coords, rain,
                               Config.RESULT_NAME,
                               url_for('index', _external=True))
 

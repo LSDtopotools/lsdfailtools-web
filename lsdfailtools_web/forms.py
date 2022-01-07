@@ -3,5 +3,7 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 
 class UploadDataForm(FlaskForm):
-    lsddata = FileField('LSDData', validators=[
+    coordinates = FileField('Coordinates', validators=[
+        FileRequired(), FileAllowed(['csv'], 'csv files only')])
+    precipitation = FileField('Precipitation', validators=[
         FileRequired(), FileAllowed(['csv'], 'csv files only')])
