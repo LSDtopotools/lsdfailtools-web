@@ -1,3 +1,9 @@
+lsdfailtools-web (0.1.0-1) geos; urgency=medium
+
+  * new version
+
+ -- Magnus Hagdorn <magnus.hagdorn@ed.ac.uk>  Fri, 07 Jan 2022 18:33:45 +0000
+
 lsdfailtools-web (0.0.0-2) geos; urgency=medium
 
   * fix dependencies 
