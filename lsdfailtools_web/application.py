@@ -1,5 +1,5 @@
 from flask import Flask, has_app_context
-from flask_wtf.csrf import CSRFProtect
+from flask_cors import CORS
 from celery import Celery
 from .config import Config
 from flask_sqlalchemy import SQLAlchemy
@@ -40,8 +40,6 @@ class FlaskCelery(Celery):
         self.config_from_object(app.config)
 
 
-csrf = CSRFProtect()
-
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
@@ -49,10 +47,11 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-csrf.init_app(app)
 
 mail = Mail(app)
 
 celery = FlaskCelery()
 celery.init_app(app)
 celery.conf.update(app.config)
+
+CORS(app)
