@@ -29,3 +29,6 @@ class Config:
     LSDFAILTOOL = os.environ.get('LSDFAILTOOL') or 'lsdfailtools-wrapper'
     LSDFAILTOOL_CFG = os.environ.get('LSDFAILTOOL_CFG') or \
         'file_paths_landslide_automation.json'
+
+    WORK_END_ENDPOINT = os.environ.get('WORK_END_ENDPOINT') or \
+        'localhost/api/integration/ed/finish/work/'

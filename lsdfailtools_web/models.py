@@ -11,8 +11,8 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Text, primary_key=True)
     name = db.Column(db.Text, nullable=False)
-    email = db.Column(db.Text, unique=True, nullable=False)
-    profile_pic = db.Column(db.Text, nullable=False)
+    email = db.Column(db.Text, unique=True, nullable=True)
+    profile_pic = db.Column(db.Text, nullable=True)
     runs = relationship("Run", back_populates="user")
 
     def __repr__(self):
@@ -71,3 +71,13 @@ class Run(db.Model):
     status = db.Column(db.Enum(RunState))
     user_id = db.Column(db.Text, db.ForeignKey('users.id'))
     user = relationship("User", back_populates="runs")
+
+
+def jsonify_run(runs):
+    result = []
+    for run in runs:
+        actual_run = {}
+        actual_run['id'] = str(run.id)
+        actual_run['status'] = str(run.status)
+        result.append(actual_run)
+    return result
