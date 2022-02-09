@@ -43,7 +43,7 @@ def new(*args, **kwargs):
         rundir.mkdir()
 
         request.files['Coordinates'].save((rundir / coords).open('wb'))
-        request.files['Precipitation'].save((rundir / coords).open('wb'))
+        request.files['Precipitation'].save((rundir / rain).open('wb'))
 
         db.session.add(run)
         db.session.commit()
